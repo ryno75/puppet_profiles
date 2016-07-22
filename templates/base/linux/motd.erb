@@ -1,0 +1,17 @@
+Welcome to <%= @hostname %>.
+===========================================================================
+ - Hostname............: <%= @hostname %>
+ - Operating System....: <%= @os['name'] %>
+ - Release.............: <%= @os['release']['full'] %>
+===========================================================================
+ - CPU usage...........: <%= @load_averages['1m'] %> <%= @load_averages['5m'] %> <%= @load_averages['15m'] %> (1, 5, 15 min)
+ - Memory used.........: <%= @memory['system']['total'] %> <%= @memory['system']['used'] %> <%= @memory['system']['available'] %> (total, used, available)
+<% if @memory.key?('swap') -%>
+ - Swap in use.........: <%= @memory['swap']['used'] %> 
+<% end -%>
+ - Processes...........: $PSA running
+ - System uptime.......: <%= @system_uptime['days'] %> days <%= @system_uptime['hours'] %> hours <%= @system_uptime['minutes'] %> minutes <%= @system_uptime['seconds'] %> seconds
+===========================================================================
+
+Happy <%= @Time.now.to_i %> Epoch day!
+
