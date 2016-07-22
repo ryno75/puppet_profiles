@@ -6,5 +6,6 @@
 class profiles::base::linux {
   include motd
   include users
+  include puppet_masterless
 }
 
