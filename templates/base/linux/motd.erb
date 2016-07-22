@@ -13,5 +13,6 @@ Welcome to <%= @hostname %>.
  - System uptime.......: <%= @system_uptime['days'] %> days <%= @system_uptime['hours'] %> hours <%= @system_uptime['minutes'] %> minutes <%= @system_uptime['seconds'] %> seconds
 ===========================================================================
 
-Happy <%= @Time.now.to_i %> Epoch day!
+<% epoch_day = ( Time.now.to_i / 86400 )-%>
+Happy <%= @epoch %> Epoch day!
 
