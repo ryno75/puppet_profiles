@@ -22,7 +22,7 @@ class profiles::wiki {
   include tomcat
   nginx::resource::vhost { $nginx_vhost_name:
     listen_port => $nginx_vhost_port,
-    porxy => $nginx_vhost_porxy,
+    proxy       => $nginx_vhost_proxy,
   }->
   tomcat::instance { 'default':
     package_name        => $package_name,
