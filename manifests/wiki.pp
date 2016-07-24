@@ -12,11 +12,12 @@ class profiles::wiki {
   $nginx_vhost_port  = hiera('nginx::resource::vhost::listen_port')
   $nginx_vhost_proxy = hiera('nginx::resource::vhost::proxy')
 
-  $install_from_source = hiera('tomcat::instance::install_from_source')
-  $package_name        = hiera('tomcat::instance::package_name')
-  $service_name        = hiera('tomcat::service::service_name')
-  $use_init            = hiera('tomcat::service::use_init')
-  $use_jsvc            = hiera('tomcat::service::use_jsvc')
+  $install_from_source            = hiera('tomcat::instance::install_from_source')
+  $package_name                   = hiera('tomcat::instance::package_name')
+  $service_name                   = hiera('tomcat::service::service_name')
+  $use_init                       = hiera('tomcat::service::use_init')
+  $use_jsvc                       = hiera('tomcat::service::use_jsvc')
+  $tomcat_server_additional_attrs = hiera_hash('tomcat::config::server::connector::additional_attributes')
 
   include nginx
   include tomcat
@@ -27,6 +28,10 @@ class profiles::wiki {
   tomcat::instance { 'default':
     package_name        => $package_name,
     install_from_source => $install_from_source,
+  }->
+  tomcat::config::server::connector { 'HTTP/1.1':
+    port                  => 8080,
+    additional_attributes => $tomcat_server_additional_attrs
   }->
   tomcat::service { 'default':
     use_init     => true,
