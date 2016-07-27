@@ -24,20 +24,22 @@ class profiles::wiki {
   nginx::resource::vhost { $nginx_vhost_name:
     listen_port => $nginx_vhost_port,
     proxy       => $nginx_vhost_proxy,
-  }->
+  }
   tomcat::instance { 'default':
     package_name        => $package_name,
     install_from_source => $install_from_source,
-  }->
+  }
   tomcat::config::server::connector { 'HTTP/1.1':
     port                  => 8080,
     additional_attributes => $tomcat_server_additional_attrs
-  }->
+  }
   tomcat::service { 'default':
     use_init     => true,
     use_jsvc     => false,
     service_name => $service_name,
-  }->
-  class { 'jamwiki': }
+  }
+  class { 'jamwiki': 
+    require => [ Class['tomcat'], Class['nginx'] ]
+  }
 
 } 
